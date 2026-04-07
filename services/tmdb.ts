@@ -6,17 +6,17 @@ export const getTrendingMovies = async () => {
     try {
         const res = await apiClient.get(`${BASE_URL}/trending/movie/day`)
         
-        return res?.data?.results
+        return res?.data
     } catch (err) {
         console.log('err: ', err)
     }
 }
 
-export const getTrendingMoviesByPeriod = async (period: string) => {
+export const getTrendingMoviesByPeriod = async (period: string, currentPage?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/trending/movie/${period}`)
+        const res = await apiClient.get(`${BASE_URL}/trending/movie/${period}${currentPage ? `?page=${currentPage}`: ''}`)
 
-        return res?.data?.results
+        return res?.data
     } catch (err) {
         console.log('err: ', err)
     }

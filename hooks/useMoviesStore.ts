@@ -6,8 +6,9 @@ interface MoviesStore {
     trendingMoviesByPeriod?: any[];
     upcomingMovies?: any[];
     isLoading: boolean;
+    totalPages?: number;
     fetchTrendingMovies: () => Promise<void>;
-    fetchTrendingMoviesByPeriod?: (period: string) => Promise<void>;
+    fetchTrendingMoviesByPeriod?: (period: string, currentPage?: number) => Promise<void>;
     fetchUpcomingMovies: () => Promise<void>;
 }
 
@@ -16,24 +17,25 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
     trendingMoviesByPeriod: [],
     upcomingMovies: [],
     isLoading: true,
+    totalPages: 0,
     fetchTrendingMovies: async () => {
         set({isLoading: true})
 
         try {
             const res = await getTrendingMovies()
             console.log('resss: ', res)
-            set({trendingMovies: res, isLoading: false})
+            set({trendingMovies: res?.results, totalPages: res?.total_pages, isLoading: false})
         } catch (err) {
             console.log('err: ', err)
         }
     },
-    fetchTrendingMoviesByPeriod: async (period: string) => {
+    fetchTrendingMoviesByPeriod: async (period: string, currentPage?: number) => {
         set({isLoading: true})
 
         try {
-            const res = await getTrendingMoviesByPeriod(period)
+            const res = await getTrendingMoviesByPeriod(period, currentPage)
 
-            set({trendingMoviesByPeriod: res, isLoading: false})
+            set({trendingMoviesByPeriod: res?.results, totalPages: res?.total_pages, isLoading: false})
         } catch(err) {
             console.log('err: ', err)
         }
