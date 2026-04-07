@@ -31,3 +31,13 @@ export const getTrendingPeople = async (period: string) => {
         console.log('err: ', err)
     }
 }
+
+export const getTrendingTVSeries = async (period: string) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/trending/tv/${period}`)
+
+        return res?.data?.results
+    } catch(err) {
+        console.log('err: ', err)
+    }
+}
