@@ -11,3 +11,13 @@ export const getTrendingMovies = async () => {
         console.log('err: ', err)
     }
 }
+
+export const getTrendingMoviesByPeriod = async (period: string) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/trending/movie/${period}`)
+
+        return res?.data?.results
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
