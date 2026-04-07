@@ -13,7 +13,7 @@ const MovieCard = ({ movie }: { movie: any }) => {
                 className="relative z-20 aspect-video w-full object-cover h-50 min-h-50"
             />
             <CardHeader className="flex flex-col">
-                <CardTitle className='font-bold'>{movie?.title}</CardTitle>
+                <CardTitle className='font-bold line-clamp-1'>{movie?.title}</CardTitle>
                 <CardDescription className='line-clamp-2 overflow-hidden flex-1'>
                     {movie?.overview}
                 </CardDescription>

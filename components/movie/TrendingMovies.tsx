@@ -44,8 +44,8 @@ const TrendingMovies = () => {
                 </Select>
             </div>
 
-            <div className='flex gap-x-6 mt-12'>
-                {trendingMoviesByPeriod?.slice(0, 4)?.map((movie) => (
+            <div className='grid grid-cols-4 grid-rows-2 gap-8 mt-12'>
+                {trendingMoviesByPeriod?.slice(0, 8)?.map((movie) => (
                     <MovieCard key={movie?.id} movie={movie} />
                 ))}
             </div>

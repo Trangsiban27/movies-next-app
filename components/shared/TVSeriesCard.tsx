@@ -15,7 +15,7 @@ const TVSeriesCard = ({ tv }: { tv: any }) => {
                 className="relative z-20 aspect-video w-full object-cover h-50 min-h-50"
             />
             <CardHeader className="flex flex-col">
-                <CardTitle className='font-bold'>{tv?.name}</CardTitle>
+                <CardTitle className='font-bold line-clamp-1'>{tv?.name}</CardTitle>
                 <CardDescription className='line-clamp-2 overflow-hidden flex-1'>
                     {tv?.overview}
                 </CardDescription>
