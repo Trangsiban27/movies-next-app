@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react'
 import MovieCard from '../shared/MovieCard'
 import { ChevronDown } from 'lucide-react'
 import TVSeriesCard from '../shared/TVSeriesCard'
+import { useRouter } from 'next/navigation'
 
 const TrendingTVSeries = () => {
+    const router = useRouter()
     const [period, setPeriod] = useState<string>('day')
     const { trendingTVSeries, fetchTVSeriesByPeriod, isLoading } = useTVSeriesStore()
 
@@ -18,6 +20,10 @@ const TrendingTVSeries = () => {
 
     const handleChangePeriod = (period: string) => {
         setPeriod(period)
+    }
+
+    const handleSeeMore = () => {
+        router.push('trending-tvseries')
     }
 
     if (isLoading) {
@@ -53,7 +59,7 @@ const TrendingTVSeries = () => {
                 ))}
             </div>
 
-            <div className='w-full flex flex-col items-center justify-center mt-6 cursor-pointer group text-sm hover:text-red-500'>
+            <div className='w-full flex flex-col items-center justify-center mt-6 cursor-pointer group text-sm hover:text-red-500' onClick={handleSeeMore}>
                 <span className='font-semibold '>
                     See more
                 </span>
