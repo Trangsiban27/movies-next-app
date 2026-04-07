@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: process.env.TMDB_BASE_URL,
+    baseURL: process.env.NEXT_PUBLIC_TMDB_BASE_URL,
     params: {
-        api_key: process.env.TMDB_API_KEY,
+        api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
         Language: 'vi-VN'
     }
 })
