@@ -3,6 +3,7 @@ import Hero from '@/components/movie/Hero'
 import TrendingMovies from '@/components/movie/TrendingMovies'
 import TrendingPeople from '@/components/movie/TrendingPeople'
 import TrendingTVSeries from '@/components/movie/TrendingTVSeries'
+import UpcomingMovies from '@/components/movie/UpcomingMovies'
 import { useMoviesStore } from '@/hooks/useMoviesStore'
 import React, { useEffect } from 'react'
 
@@ -22,6 +23,8 @@ const page = () => {
             <TrendingPeople />
 
             <TrendingTVSeries />
+
+            <UpcomingMovies />
         </div>
     )
 }

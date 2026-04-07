@@ -41,3 +41,13 @@ export const getTrendingTVSeries = async (period: string) => {
         console.log('err: ', err)
     }
 }
+
+export const getUpcomingMovies = async () => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/movie/upcoming`)
+
+        return res?.data?.results
+    } catch(err) {
+        console.log('err: ', err)
+    }
+}
