@@ -2,13 +2,19 @@ import { useMoviesStore } from '@/hooks/useMoviesStore'
 import React, { useEffect } from 'react'
 import MovieCard from '../shared/MovieCard'
 import { ChevronDown } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const UpcomingMovies = () => {
+    const router = useRouter()
     const { upcomingMovies, fetchUpcomingMovies, isLoading } = useMoviesStore()
 
     useEffect(() => {
         fetchUpcomingMovies()
     }, [])
+
+    const handleSeeMore = () => {
+        router.push('upcoming-movies')
+    }
 
     if (isLoading) {
         return (
@@ -30,7 +36,7 @@ const UpcomingMovies = () => {
                 ))}
             </div>
 
-            <div className='w-full flex flex-col items-center justify-center mt-6 cursor-pointer group text-sm hover:text-red-500'>
+            <div className='w-full flex flex-col items-center justify-center mt-6 cursor-pointer group text-sm hover:text-red-500' onClick={handleSeeMore}>
                 <span className='font-semibold '>
                     See more
                 </span>

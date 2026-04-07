@@ -42,11 +42,11 @@ export const getTrendingTVSeries = async (period: string, page?: number) => {
     }
 }
 
-export const getUpcomingMovies = async () => {
+export const getUpcomingMovies = async (page?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/movie/upcoming`)
+        const res = await apiClient.get(`${BASE_URL}/movie/upcoming${page ? `?page=${page}` : ''}`)
 
-        return res?.data?.results
+        return res?.data
     } catch(err) {
         console.log('err: ', err)
     }

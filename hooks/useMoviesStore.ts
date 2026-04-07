@@ -9,7 +9,7 @@ interface MoviesStore {
     totalPages?: number;
     fetchTrendingMovies: () => Promise<void>;
     fetchTrendingMoviesByPeriod?: (period: string, currentPage?: number) => Promise<void>;
-    fetchUpcomingMovies: () => Promise<void>;
+    fetchUpcomingMovies: (page?: number) => Promise<void>;
 }
 
 export const useMoviesStore = create<MoviesStore>((set) => ({
@@ -40,13 +40,13 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
             console.log('err: ', err)
         }
     },
-    fetchUpcomingMovies: async () => {
+    fetchUpcomingMovies: async (page?: number) => {
         set({isLoading: true})
 
         try {
-            const res = await getUpcomingMovies()
+            const res = await getUpcomingMovies(page )
 
-            set({upcomingMovies: res, isLoading: false})
+            set({upcomingMovies: res?.results, totalPages: res?.total_pages, isLoading: false})
         } catch(err) {
             console.log('err: ', err)
         }
