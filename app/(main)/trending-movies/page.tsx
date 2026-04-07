@@ -13,9 +13,12 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import PaginationCustom from '@/components/shared/Pagination'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { ChevronLeft } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const TrendingMoviesPage = () => {
+    const router = useRouter()
     const { trendingMoviesByPeriod, fetchTrendingMoviesByPeriod, isLoading, totalPages } = useMoviesStore()
     const [period, setPeriod] = useState<string>('day')
 
@@ -30,6 +33,10 @@ const TrendingMoviesPage = () => {
         setPeriod(period)
     }
 
+    const handleBack = () => {
+        router.back()
+    }
+
     if (isLoading) {
         return (
             <div className='w-full h-48 flex items-center justify-center'>
@@ -41,7 +48,12 @@ const TrendingMoviesPage = () => {
     return (
         <div className='my-6'>
             <div className='w-full flex items-center justify-between'>
-                <span className='font-bold text-3xl'>Trending Movies</span>
+                <div className='flex items-center gap-x-2'>
+                    <Button variant={'ghost'} className='cursor-pointer' onClick={handleBack}>
+                        <ChevronLeft />
+                    </Button>
+                    <span className='font-bold text-3xl'>Trending Movies</span>
+                </div>
 
                 <Select value={period} onValueChange={handleChangePeriod}>
                     <SelectTrigger className="w-full max-w-48 font-bold">
