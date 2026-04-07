@@ -1,21 +1,21 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
-import MovieCard from '../shared/MovieCard'
-import { useMoviesStore } from '@/hooks/useMoviesStore'
-import { ChevronDown, ChevronsDown } from 'lucide-react'
+import { usePeopleStore } from '@/hooks/usePeopleStore'
+import { ChevronDown } from 'lucide-react'
+import PeopleCard from '../shared/PeopleCard'
 
-const TrendingMovies = () => {
-    const { trendingMoviesByPeriod, fetchTrendingMoviesByPeriod, isLoading } = useMoviesStore()
+const TrendingPeople = () => {
     const [period, setPeriod] = useState<string>('day')
-
-    useEffect(() => {
-        fetchTrendingMoviesByPeriod?.(period)
-    }, [period])
+    const { fetchTrendingPeoplesByPeriod, trendingPeoples, isLoading } = usePeopleStore()
 
     const handleChangePeriod = (period: string) => {
         setPeriod(period)
     }
+
+    useEffect(() => {
+        fetchTrendingPeoplesByPeriod(period)
+    }, [period])
 
     if (isLoading) {
         return (
@@ -28,7 +28,7 @@ const TrendingMovies = () => {
     return (
         <div className="mt-12">
             <div className='w-full flex items-center justify-between'>
-                <span className='font-bold text-3xl'>Trending Movies</span>
+                <span className='font-bold text-3xl'>Trending People</span>
 
                 <Select value={period} onValueChange={handleChangePeriod}>
                     <SelectTrigger className="w-full max-w-48 font-bold">
@@ -45,8 +45,8 @@ const TrendingMovies = () => {
             </div>
 
             <div className='flex gap-x-6 mt-12'>
-                {trendingMoviesByPeriod?.slice(0, 4)?.map((movie) => (
-                    <MovieCard key={movie?.id} movie={movie} />
+                {trendingPeoples?.slice(0, 4)?.map((people) => (
+                    <PeopleCard key={people?.id} people={people} />
                 ))}
             </div>
 
@@ -60,4 +60,4 @@ const TrendingMovies = () => {
     )
 }
 
-export default TrendingMovies
+export default TrendingPeople

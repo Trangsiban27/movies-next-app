@@ -11,7 +11,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex h-screen w-full bg-[#0D0D0D] text-gray-100 overflow-hidden">
             {/* 1. Sidebar bên trái - Cố định độ rộng */}
-            <aside className={`hidden md:flex flex-col border-r border-white/5 bg-[#0D0D0D] ${isOpen ? 'w-65' : 'w-0 -ml-[260px] md:ml-0 md:w-0 overflow-hidden border-none'}`}>
+            <aside className={`hidden md:flex flex-col border-r border-white/5 bg-[#0D0D0D] ${isOpen ? 'w-65' : 'w-0 -ml-65 md:ml-0 md:w-0 overflow-hidden border-none'}`}>
                 <Sidebar />
             </aside>
 
