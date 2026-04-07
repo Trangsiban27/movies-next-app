@@ -4,19 +4,20 @@ import { create } from "zustand";
 interface PeopleStore {
     trendingPeoples?: any[];
     isLoading: boolean,
-    fetchTrendingPeoplesByPeriod: (period: string) => Promise<void>
+    totalPages?: number,
+    fetchTrendingPeoplesByPeriod: (period: string, page?: number) => Promise<void>
 }
 
 export const usePeopleStore = create<PeopleStore>((set) => ({
     trendingPeoples: [],
     isLoading: false,
-    fetchTrendingPeoplesByPeriod: async (period: string) => {
+    fetchTrendingPeoplesByPeriod: async (period: string, page?: number) => {
         set({isLoading: true})
 
         try {
-            const res = await getTrendingPeople(period)
+            const res = await getTrendingPeople(period, page)
 
-            set({trendingPeoples: res, isLoading: false})
+            set({trendingPeoples: res?.results, totalPages: res?.total_pages, isLoading: false})
         } catch(err) {
             console.log('err: ', err)
         }

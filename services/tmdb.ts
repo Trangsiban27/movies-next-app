@@ -22,11 +22,11 @@ export const getTrendingMoviesByPeriod = async (period: string, currentPage?: nu
     }
 }
 
-export const getTrendingPeople = async (period: string) => {
+export const getTrendingPeople = async (period: string, page?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/trending/person/${period}`)
+        const res = await apiClient.get(`${BASE_URL}/trending/person/${period}${page ? `?page=${page}` : ''}`)
 
-        return res?.data?.results
+        return res?.data
     } catch(err) {
         console.log('err: ', err)
     }

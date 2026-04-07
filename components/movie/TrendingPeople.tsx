@@ -4,13 +4,19 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { usePeopleStore } from '@/hooks/usePeopleStore'
 import { ChevronDown } from 'lucide-react'
 import PeopleCard from '../shared/PeopleCard'
+import { useRouter } from 'next/navigation'
 
 const TrendingPeople = () => {
+    const router = useRouter()
     const [period, setPeriod] = useState<string>('day')
     const { fetchTrendingPeoplesByPeriod, trendingPeoples, isLoading } = usePeopleStore()
 
     const handleChangePeriod = (period: string) => {
         setPeriod(period)
+    }
+
+    const handleSeeMore = () => {
+        router.push('trending-people')
     }
 
     useEffect(() => {
@@ -50,7 +56,7 @@ const TrendingPeople = () => {
                 ))}
             </div>
 
-            <div className='w-full flex flex-col items-center justify-center mt-6 cursor-pointer group text-sm hover:text-red-500'>
+            <div className='w-full flex flex-col items-center justify-center mt-6 cursor-pointer group text-sm hover:text-red-500' onClick={handleSeeMore}>
                 <span className='font-semibold '>
                     See more
                 </span>

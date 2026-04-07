@@ -3,30 +3,23 @@ import MovieCard from '@/components/shared/MovieCard'
 import { useMoviesStore } from '@/hooks/useMoviesStore'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../components/ui/select'
 import React, { useEffect, useState } from 'react'
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
 import PaginationCustom from '@/components/shared/Pagination'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { usePeopleStore } from '@/hooks/usePeopleStore'
+import PeopleCard from '@/components/shared/PeopleCard'
 
-const TrendingMoviesPage = () => {
+const TrendingPeoplePage = () => {
     const router = useRouter()
-    const { trendingMoviesByPeriod, fetchTrendingMoviesByPeriod, isLoading, totalPages } = useMoviesStore()
+    const { trendingPeoples, fetchTrendingPeoplesByPeriod, isLoading, totalPages } = usePeopleStore()
     const [period, setPeriod] = useState<string>('day')
 
     const searchParams = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1
 
     useEffect(() => {
-        fetchTrendingMoviesByPeriod?.(period, currentPage)
+        fetchTrendingPeoplesByPeriod?.(period, currentPage)
     }, [period])
 
     const handleChangePeriod = (period: string) => {
@@ -52,7 +45,7 @@ const TrendingMoviesPage = () => {
                     <Button variant={'ghost'} className='cursor-pointer' onClick={handleBack}>
                         <ChevronLeft />
                     </Button>
-                    <span className='font-bold text-3xl'>Trending Movies</span>
+                    <span className='font-bold text-3xl'>Trending People</span>
                 </div>
 
                 <Select value={period} onValueChange={handleChangePeriod}>
@@ -70,8 +63,8 @@ const TrendingMoviesPage = () => {
             </div>
 
             <div className='grid grid-cols-4 gap-8 mt-8'>
-                {trendingMoviesByPeriod?.map((movie) => (
-                    <MovieCard key={movie?.id} movie={movie} />
+                {trendingPeoples?.map((people) => (
+                    <PeopleCard key={people?.id} people={people} />
                 ))}
             </div>
 
@@ -82,4 +75,4 @@ const TrendingMoviesPage = () => {
     )
 }
 
-export default TrendingMoviesPage
+export default TrendingPeoplePage
