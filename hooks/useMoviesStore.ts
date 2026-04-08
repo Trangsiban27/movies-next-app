@@ -1,21 +1,28 @@
-import { getTrendingMovies, getTrendingMoviesByPeriod, getUpcomingMovies } from "@/services/tmdb";
+import { getMovie, getMovieCast, getMovieVideo, getTrendingMovies, getTrendingMoviesByPeriod, getUpcomingMovies } from "@/services/tmdb";
 import { create } from "zustand";
 
 interface MoviesStore {
     trendingMovies: any[];
     trendingMoviesByPeriod?: any[];
     upcomingMovies?: any[];
+    movie: any;
+    movieCasts?: any[];
+    movieVideoTrailer?: any[];
     isLoading: boolean;
     totalPages?: number;
     fetchTrendingMovies: () => Promise<void>;
     fetchTrendingMoviesByPeriod?: (period: string, currentPage?: number) => Promise<void>;
     fetchUpcomingMovies: (page?: number) => Promise<void>;
+    fetchMovie: (id: number) => Promise<void>;
+    fetchMovieCasts: (id: number) => Promise<void>;
+    fetchMovieVideos: (id: number) => Promise<void>;
 }
 
 export const useMoviesStore = create<MoviesStore>((set) => ({
     trendingMovies: [],
     trendingMoviesByPeriod: [],
     upcomingMovies: [],
+    movie: {},
     isLoading: true,
     totalPages: 0,
     fetchTrendingMovies: async () => {
@@ -48,6 +55,40 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
 
             set({upcomingMovies: res?.results, totalPages: res?.total_pages, isLoading: false})
         } catch(err) {
+            console.log('err: ', err)
+        }
+    },
+    fetchMovie: async (id: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await getMovie(id)
+
+            set({movie: res?.data, isLoading: false})
+        } catch(err) {
+            console.log('err: ', err)
+        }
+    },
+    fetchMovieCasts: async (id: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await getMovieCast(id)
+
+            set({movieCasts: res?.cast, isLoading: false})
+        } catch(err) {
+            console.log('err: ', err)
+        }
+    },
+    fetchMovieVideos: async (id: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await getMovieVideo(id)
+
+            const trailers = res?.filter((video: any) => video?.type === 'Trailer')
+            set({movieVideoTrailer: trailers, isLoading: false})
+        } catch (err) {
             console.log('err: ', err)
         }
     }

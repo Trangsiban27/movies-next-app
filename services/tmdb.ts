@@ -51,3 +51,33 @@ export const getUpcomingMovies = async (page?: number) => {
         console.log('err: ', err)
     }
 }
+
+export const getMovie = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/movie/${id}`)
+
+        return res
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
+
+export const getMovieCast = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/movie/${id}/credits`)
+
+        return res?.data
+    } catch(err) {
+        console.log('err: ', err)
+    }
+}
+
+export const getMovieVideo = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/movie/${id}/videos`)
+
+        return res?.data?.results
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
