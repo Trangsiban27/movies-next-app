@@ -2,6 +2,7 @@
 import TrendingMovies from '@/components/movie/TrendingMovies'
 import CarouselList from '@/components/shared/CarouselList'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { useMoviesStore } from '@/hooks/useMoviesStore'
 import { ArrowLeft, ListPlus, Play } from 'lucide-react'
 import Image from 'next/image'
@@ -30,6 +31,10 @@ const MovieDetailPage = () => {
 
     const handleBack = () => {
         router.push('/')
+    }
+
+    const handleWatchTrailerBtn = () => {
+
     }
 
     if (isLoading) {
@@ -88,10 +93,26 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className='flex items-center gap-x-6 flex-1 pb-4 mt-6'>
-                        <Button size={'lg'} className='w-fit bg-red-600/60 font-bold flex items-center gap-x-2 cursor-pointer py-6 px-10'>
-                            <Play />
-                            Watch Trailer
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button size={'lg'} className='w-fit bg-red-600/60 font-bold flex items-center gap-x-2 cursor-pointer py-6 px-10'>
+                                    <Play />
+                                    Watch Trailer
+                                </Button>
+                            </DialogTrigger>
+
+                            <DialogContent className="sm:max-w-md lg:min-w-6xl h-[80%] bg-black/60">
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src={`https://www.youtube.com/embed/${movieVideoTrailer?.[0]?.key}?autoplay=1`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </DialogContent>
+                        </Dialog>
 
                         <Button className='w-fit bg-red-600/60 font-bold flex items-center gap-x-2 cursor-pointer'>
                             <ListPlus />
