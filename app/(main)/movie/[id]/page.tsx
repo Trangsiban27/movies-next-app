@@ -1,6 +1,7 @@
 'use client'
 import TrendingMovies from '@/components/movie/TrendingMovies'
 import CarouselList from '@/components/shared/CarouselList'
+import Reviews from '@/components/shared/reviews/Reviews'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { useMoviesStore } from '@/hooks/useMoviesStore'
@@ -13,7 +14,7 @@ const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://ima
 
 const MovieDetailPage = () => {
     const router = useRouter()
-    const { movie, movieCasts, movieVideoTrailer, fetchMovie, fetchMovieCasts, fetchMovieVideos, isLoading } = useMoviesStore()
+    const { movie, movieCasts, movieVideoTrailer, movieReviews, totalPages, fetchMovie, fetchMovieCasts, fetchMovieVideos, fetchMovieReviews, isLoading } = useMoviesStore()
 
     const params = useParams()
     const id = params?.id
@@ -25,16 +26,13 @@ const MovieDetailPage = () => {
             fetchMovie(Number(id)).then((res) => {
                 fetchMovieCasts(Number(id))
                 fetchMovieVideos(Number(id))
+                fetchMovieReviews(Number(id))
             })
         }
     }, [id])
 
     const handleBack = () => {
         router.push('/')
-    }
-
-    const handleWatchTrailerBtn = () => {
-
     }
 
     if (isLoading) {
@@ -159,6 +157,8 @@ const MovieDetailPage = () => {
             <div className='flex flex-col gap-8'>
                 <TrendingMovies />
             </div>
+
+            <Reviews reviews={movieReviews} totalPages={totalPages} />
         </div>
     )
 }

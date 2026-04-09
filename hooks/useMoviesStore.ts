@@ -1,4 +1,4 @@
-import { getMovie, getMovieCast, getMovieVideo, getTrendingMovies, getTrendingMoviesByPeriod, getUpcomingMovies } from "@/services/tmdb";
+import { getMovie, getMovieCast, getMovieReviews, getMovieVideo, getTrendingMovies, getTrendingMoviesByPeriod, getUpcomingMovies } from "@/services/tmdb";
 import { create } from "zustand";
 
 interface MoviesStore {
@@ -8,6 +8,7 @@ interface MoviesStore {
     movie: any;
     movieCasts?: any[];
     movieVideoTrailer?: any[];
+    movieReviews?: any[];
     isLoading: boolean;
     totalPages?: number;
     fetchTrendingMovies: () => Promise<void>;
@@ -16,6 +17,7 @@ interface MoviesStore {
     fetchMovie: (id: number) => Promise<void>;
     fetchMovieCasts: (id: number) => Promise<void>;
     fetchMovieVideos: (id: number) => Promise<void>;
+    fetchMovieReviews: (id: number, page?: number) => Promise<void>
 }
 
 export const useMoviesStore = create<MoviesStore>((set) => ({
@@ -89,6 +91,17 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
             const trailers = res?.filter((video: any) => video?.type === 'Trailer')
             set({movieVideoTrailer: trailers, isLoading: false})
         } catch (err) {
+            console.log('err: ', err)
+        }
+    },
+    fetchMovieReviews: async (id: number, page?: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await getMovieReviews(id, page)
+
+            set({movieReviews: res?.results, totalPages: res?.total_pages, isLoading: false})
+        } catch(err) {
             console.log('err: ', err)
         }
     }

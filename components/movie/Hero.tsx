@@ -2,11 +2,13 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight, Wifi } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
 
 const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://image.tmdb.org/t/p/w500'
 
 const Hero = ({ movies }: { movies: any }) => {
+    const router = useRouter()
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 })
     const [selectedIndex, setSelectedIndex] = useState(0)
 
@@ -23,6 +25,10 @@ const Hero = ({ movies }: { movies: any }) => {
 
         setSelectedIndex(emblaApi.selectedScrollSnap())
     }, [emblaApi])
+
+    const handleWatchBtn = (id: number) => {
+        router.push(`movie/${id}`)
+    }
 
     useEffect(() => {
         if (!emblaApi) return
@@ -70,7 +76,7 @@ const Hero = ({ movies }: { movies: any }) => {
                                     </div>
                                 </div>
 
-                                <button className="bg-[#E50914] hover:bg-red-700 text-white w-48 py-4 rounded-2xl font-bold text-lg transition-all active:scale-95 shadow-xl shadow-red-600/20 cursor-pointer">
+                                <button className="bg-[#E50914] hover:bg-red-700 text-white w-48 py-4 rounded-2xl font-bold text-lg transition-all active:scale-95 shadow-xl shadow-red-600/20 cursor-pointer" onClick={() => handleWatchBtn(movie?.id)}>
                                     Watch
                                 </button>
                             </div>

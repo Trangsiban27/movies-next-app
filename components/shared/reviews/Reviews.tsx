@@ -1,0 +1,22 @@
+import React from 'react'
+import ReviewItem from './ReviewItem'
+import { Pagination } from '@/components/ui/pagination'
+import PaginationCustom from '../Pagination'
+
+const Reviews = ({ reviews, totalPages }: { reviews?: any[], totalPages?: number }) => {
+    return (
+        <div className='mt-16 flex flex-col gap-8'>
+            <h3 className="text-white font-bold text-xl mb-3">Reviews</h3>
+
+            <div className='flex flex-col gap-6'>
+                {reviews?.map((review) => (
+                    <ReviewItem review={review} />
+                ))}
+            </div>
+
+            <PaginationCustom totalPages={totalPages} />
+        </div>
+    )
+}
+
+export default Reviews
