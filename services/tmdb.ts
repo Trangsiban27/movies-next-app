@@ -122,3 +122,13 @@ export const getTVSeriesVideos = async (id: number) => {
         console.log('err: ', err)
     }
 }
+
+export const getTVSeriesImages = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/tv/${id}/images`)
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}

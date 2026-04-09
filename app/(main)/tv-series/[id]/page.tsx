@@ -18,9 +18,12 @@ const TvSerieDetailPage = () => {
         tvSeries,
         tvSeriesCasts,
         tvSeriesVideos,
+        tvSeriesImages,
+        tvSeriesTrailer,
         fetchTVSeries,
         fetchTVSeriesCasts,
         fetchTVSeriesVideos,
+        fetchTVSeriesImages,
         isLoading
     } = useTVSeriesStore()
 
@@ -32,6 +35,7 @@ const TvSerieDetailPage = () => {
             fetchTVSeries(Number(id)).then(() => {
                 fetchTVSeriesCasts(Number(id))
                 fetchTVSeriesVideos(Number(id))
+                fetchTVSeriesImages(Number(id))
             })
         }
     }, [id])
@@ -98,7 +102,7 @@ const TvSerieDetailPage = () => {
                     </div>
 
                     <div className='flex items-center gap-x-6 flex-1 pb-4 mt-6'>
-                        {/* <Dialog>
+                        <Dialog>
                             <DialogTrigger asChild>
                                 <Button size={'lg'} className='w-fit bg-red-600/60 font-bold flex items-center gap-x-2 cursor-pointer py-6 px-10'>
                                     <Play />
@@ -110,14 +114,14 @@ const TvSerieDetailPage = () => {
                                 <iframe
                                     width="100%"
                                     height="100%"
-                                    src={`https://www.youtube.com/embed/${movieVideoTrailer?.[0]?.key}?autoplay=1`}
+                                    src={`https://www.youtube.com/embed/${tvSeriesTrailer?.[0]?.key}?autoplay=1`}
                                     title="YouTube video player"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                 ></iframe>
                             </DialogContent>
-                        </Dialog> */}
+                        </Dialog>
 
                         <Button className='w-fit bg-red-600/60 font-bold flex items-center gap-x-2 cursor-pointer'>
                             <ListPlus />
@@ -219,7 +223,7 @@ const TvSerieDetailPage = () => {
                 <div className='flex flex-col gap-4'>
                     <div className='grid grid-cols-2 col-span-2 gap-4'>
                         {tvSeriesVideos?.slice(0, 2)?.map((video: any) => (
-                            <div className='h-60 rounded-lg overflow-hidden'>
+                            <div key={video?.id} className='h-60 rounded-lg overflow-hidden'>
                                 <iframe
                                     width="100%"
                                     height="100%"
@@ -235,7 +239,7 @@ const TvSerieDetailPage = () => {
 
                     <div className='grid grid-cols-4 gap-4'>
                         {tvSeriesVideos?.slice(2, 6)?.map((video: any) => (
-                            <div className='h-60 rounded-lg overflow-hidden'>
+                            <div key={video?.id} className='h-60 rounded-lg overflow-hidden'>
                                 <iframe
                                     width="100%"
                                     height="100%"
@@ -245,6 +249,28 @@ const TvSerieDetailPage = () => {
                                     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                 ></iframe>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className='flex flex-col gap-y-4 mt-12'>
+                <span className='text-white font-bold text-xl'>Images</span>
+
+                <div className='flex flex-col gap-4'>
+                    <div className='grid grid-cols-2 col-span-2 gap-4'>
+                        {tvSeriesImages?.slice(0, 2)?.map((image: any) => (
+                            <div key={image?.id} className='w-full h-80 rounded-lg overflow-hidden'>
+                                <img className='w-full h-full object-cover' src={`${imageBaseUrl}${image?.file_path}`} alt="tv series image" />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='grid grid-cols-4 gap-4'>
+                        {tvSeriesImages?.slice(2, 6)?.map((image: any) => (
+                            <div key={image?.id} className='w-full h-60 rounded-lg overflow-hidden'>
+                                <img className='w-full h-full object-cover' src={`${imageBaseUrl}${image?.file_path}`} alt="tv series image" />
                             </div>
                         ))}
                     </div>
