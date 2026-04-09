@@ -10,7 +10,7 @@ const MovieCard = ({ movie }: { movie: any }) => {
     const router = useRouter()
 
     const handleCardClick = () => {
-        router.push(`movie/${movie?.id}`)
+        router.push(`/movie/${movie?.id}`)
     }
 
     return (

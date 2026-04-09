@@ -1,4 +1,5 @@
 import { Compass, ListMusic, MoreHorizontal, PlaySquare, TrendingUp, Users } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 const MENU_ITEMS = [
@@ -33,10 +34,11 @@ const FOLLOWING_USERS = [
 ];
 
 const Sidebar = () => {
+    const router = useRouter()
     return (
         <div className="flex flex-col h-full py-8 px-6">
             {/* Logo */}
-            <div className="mb-10 px-2">
+            <div className="mb-10 px-2 cursor-pointer" onClick={() => router.push('/')}>
                 <h1 className="text-xl font-bold tracking-tighter flex items-center gap-2">
                     <span className="bg-red-600 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs">B</span>
                     Bean's.<span className="text-red-600 uppercase">Tub</span>

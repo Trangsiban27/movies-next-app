@@ -11,6 +11,7 @@ interface MoviesStore {
     movieReviews?: any[];
     isLoading: boolean;
     totalPages?: number;
+    totalElements?: number;
     fetchTrendingMovies: () => Promise<void>;
     fetchTrendingMoviesByPeriod?: (period: string, currentPage?: number) => Promise<void>;
     fetchUpcomingMovies: (page?: number) => Promise<void>;
@@ -27,6 +28,7 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
     movie: {},
     isLoading: true,
     totalPages: 0,
+    totalElements: 0,
     fetchTrendingMovies: async () => {
         set({isLoading: true})
 
@@ -100,7 +102,7 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
         try {
             const res = await getMovieReviews(id, page)
 
-            set({movieReviews: res?.results, totalPages: res?.total_pages, isLoading: false})
+            set({movieReviews: res?.results, totalElements: res?.total_results, totalPages: res?.total_pages, isLoading: false})
         } catch(err) {
             console.log('err: ', err)
         }

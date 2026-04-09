@@ -14,7 +14,7 @@ const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://ima
 
 const MovieDetailPage = () => {
     const router = useRouter()
-    const { movie, movieCasts, movieVideoTrailer, movieReviews, totalPages, fetchMovie, fetchMovieCasts, fetchMovieVideos, fetchMovieReviews, isLoading } = useMoviesStore()
+    const { movie, movieCasts, movieVideoTrailer, movieReviews, totalPages, totalElements, fetchMovie, fetchMovieCasts, fetchMovieVideos, fetchMovieReviews, isLoading } = useMoviesStore()
 
     const params = useParams()
     const id = params?.id
@@ -158,7 +158,7 @@ const MovieDetailPage = () => {
                 <TrendingMovies />
             </div>
 
-            <Reviews reviews={movieReviews} totalPages={totalPages} />
+            <Reviews reviews={movieReviews} totalPages={totalPages} totalElements={totalElements} />
         </div>
     )
 }
