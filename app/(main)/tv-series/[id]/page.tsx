@@ -8,27 +8,37 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import IMDbBlock from '@/components/common/IMDbBlock'
 import PopularityBlock from '@/components/common/PopularityBlock'
+import CarouselList from '@/components/shared/CarouselList'
 
 const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://image.tmdb.org/t/p/w500'
 
 const TvSerieDetailPage = () => {
     const router = useRouter()
-    const { tvSeries, fetchTVSeries, isLoading } = useTVSeriesStore()
+    const {
+        tvSeries,
+        tvSeriesCasts,
+        tvSeriesVideos,
+        fetchTVSeries,
+        fetchTVSeriesCasts,
+        fetchTVSeriesVideos,
+        isLoading
+    } = useTVSeriesStore()
 
     const params = useParams()
     const id = params?.id
 
     useEffect(() => {
         if (id) {
-            fetchTVSeries(Number(id))
+            fetchTVSeries(Number(id)).then(() => {
+                fetchTVSeriesCasts(Number(id))
+                fetchTVSeriesVideos(Number(id))
+            })
         }
     }, [id])
 
     const handleBack = () => {
         router.push('/')
     }
-
-    const handleClickLink = () => { }
 
     if (isLoading) {
         <div className='w-full h-screen flex items-center justify-center'>
@@ -197,6 +207,49 @@ const TvSerieDetailPage = () => {
                     ))}
                 </div>
             </div>}
+
+            <div className='flex flex-col gap-y-4 mt-12'>
+                <span className='text-white font-bold text-xl'>Cast</span>
+                <CarouselList list={tvSeriesCasts} type='people' />
+            </div>
+
+            <div className='flex flex-col gap-y-4 mt-12'>
+                <span className='text-white font-bold text-xl'>Videos</span>
+
+                <div className='flex flex-col gap-4'>
+                    <div className='grid grid-cols-2 col-span-2 gap-4'>
+                        {tvSeriesVideos?.slice(0, 2)?.map((video: any) => (
+                            <div className='h-60 rounded-lg overflow-hidden'>
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src={`https://www.youtube.com/embed/${video?.key}?autoplay=1`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='grid grid-cols-4 gap-4'>
+                        {tvSeriesVideos?.slice(2, 6)?.map((video: any) => (
+                            <div className='h-60 rounded-lg overflow-hidden'>
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src={`https://www.youtube.com/embed/${video?.key}?autoplay=1`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -102,3 +102,23 @@ export const getTVSerie = async (id: number) => {
         console.log('err: ', err)
     }
 }
+
+export const getTVSeriesCredits = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/tv/${id}/credits`)
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
+
+export const getTVSeriesVideos = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/tv/${id}/videos`)
+
+        return res?.data?.results
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
