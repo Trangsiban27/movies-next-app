@@ -91,3 +91,14 @@ export const getMovieReviews = async (id: number, page?: number) => {
         console.log('err: ', err)
     }
 }
+
+//Tv series
+export const getTVSerie = async (id: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/tv/${id}`)
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
