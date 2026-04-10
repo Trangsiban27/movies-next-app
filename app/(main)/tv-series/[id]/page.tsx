@@ -1,6 +1,6 @@
 'use client'
 import { useTVSeriesStore } from '@/hooks/useTVSeriesStore'
-import { ArrowLeft, Flame, ListPlus, Play } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Flame, ListPlus, Play } from 'lucide-react'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
@@ -256,7 +256,17 @@ const TvSerieDetailPage = () => {
             </div>
 
             <div className='flex flex-col gap-y-4 mt-12'>
-                <span className='text-white font-bold text-xl'>Images</span>
+                <span
+                    className='text-white font-bold text-xl flex items-center gap-2'
+                >
+                    Images
+                    <ChevronRight
+                        className='mt-1 cursor-pointer'
+                        onClick={() => {
+                            router.push(`/tv-series/${id}/images`)
+                        }}
+                    />
+                </span>
 
                 <div className='flex flex-col gap-4'>
                     <div className='grid grid-cols-2 col-span-2 gap-4'>

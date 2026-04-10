@@ -7,6 +7,7 @@ interface TVSeriesStore {
     tvSeriesCasts?: any;
     tvSeriesVideos?: any;
     tvSeriesImages?: any;
+    tvSeriesAllImages?: any;
     tvSeriesTrailer?: any;
     isLoading: boolean;
     totalPages?: number;
@@ -71,7 +72,7 @@ export const useTVSeriesStore = create<TVSeriesStore>((set) => ({
         try {
             const res = await getTVSeriesImages(id)
 
-            set({tvSeriesImages: res?.backdrops, isLoading: false})
+            set({tvSeriesImages: res?.backdrops, tvSeriesAllImages: res, isLoading: false})
         } catch (err) {
             console.log('err: ', err)
         }
