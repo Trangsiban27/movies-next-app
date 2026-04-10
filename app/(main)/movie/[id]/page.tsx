@@ -19,8 +19,6 @@ const MovieDetailPage = () => {
     const params = useParams()
     const id = params?.id
 
-    console.log('movieVideoTrailer: ', movieVideoTrailer)
-
     useEffect(() => {
         if (id) {
             fetchMovie(Number(id)).then((res) => {

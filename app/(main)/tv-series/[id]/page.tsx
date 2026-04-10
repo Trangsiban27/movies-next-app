@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import IMDbBlock from '@/components/common/IMDbBlock'
 import PopularityBlock from '@/components/common/PopularityBlock'
 import CarouselList from '@/components/shared/CarouselList'
+import Similar from '@/components/tv-series/Similar'
 
 const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://image.tmdb.org/t/p/w500'
 
@@ -295,6 +296,8 @@ const TvSerieDetailPage = () => {
                     </div>
                 </div>
             </div>
+
+            <Similar />
         </div>
     )
 }
