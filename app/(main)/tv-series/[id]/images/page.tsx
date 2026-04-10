@@ -39,7 +39,7 @@ const TvSeriesImagesPage = () => {
                                 {category} ({images?.length})
                             </h4>
 
-                            <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+                            <div className='grid md:grid-cols-4 gap-6'>
                                 {images.map((image: any, index: number) => (
                                     <div
                                         key={image?.file_path || index}

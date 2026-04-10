@@ -218,7 +218,16 @@ const TvSerieDetailPage = () => {
             </div>
 
             <div className='flex flex-col gap-y-4 mt-12'>
-                <span className='text-white font-bold text-xl'>Videos</span>
+                <span className='text-white font-bold text-xl flex items-center gap-4'>
+                    Videos
+
+                    <ChevronRight
+                        className='mt-1 cursor-pointer'
+                        onClick={() => {
+                            router.push(`/tv-series/${id}/videos`)
+                        }}
+                    />
+                </span>
 
                 <div className='flex flex-col gap-4'>
                     <div className='grid grid-cols-2 col-span-2 gap-4'>
