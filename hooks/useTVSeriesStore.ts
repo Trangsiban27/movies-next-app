@@ -1,4 +1,4 @@
-import { getTrendingTVSeries, getTVSerie, getTVSeriesCredits, getTVSeriesImages, getTVSeriesSimilar, getTVSeriesVideos } from "@/services/tmdb";
+import { getTrendingTVSeries, getTVSerie, getTVSeriesCredits, getTVSeriesImages, getTVSeriesReviews, getTVSeriesSimilar, getTVSeriesVideos } from "@/services/tmdb";
 import { create } from "zustand";
 
 interface TVSeriesStore {
@@ -10,14 +10,17 @@ interface TVSeriesStore {
     tvSeriesAllImages?: any;
     tvSeriesTrailer?: any;
     tvSeriesSimilar?: any;
+    tvSeriesReviews?: any;
     isLoading: boolean;
     totalPages?: number;
+    totalElements?: number;
     fetchTVSeriesByPeriod: (period: string, page?: number) => Promise<void>;
     fetchTVSeries: (id: number) => Promise<void>;
     fetchTVSeriesCasts: (id: number) => Promise<void>;
     fetchTVSeriesVideos: (id: number) => Promise<void>;
     fetchTVSeriesImages: (id: number) => Promise<void>;
     fetchTVSeriesSimilar: (id: number, page: number) => Promise<void>;
+    fetchTVSeriesReviews: (id: number, page: number) => Promise<void>;
 }
 
 export const useTVSeriesStore = create<TVSeriesStore>((set) => ({
@@ -89,5 +92,17 @@ export const useTVSeriesStore = create<TVSeriesStore>((set) => ({
         } catch (err) {
             console.log('err: ', err)
         }
-    }
+    },
+    fetchTVSeriesReviews: async (id: number, page: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await getTVSeriesReviews(id, page)
+
+            set({tvSeriesReviews: res?.results, totalPages: res?.total_pages, totalElements: res?.total_results, isLoading: false})
+        } catch (err) {
+            console.log('err: ', err)
+        }
+    },
+
 }))

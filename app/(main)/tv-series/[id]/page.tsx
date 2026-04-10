@@ -2,7 +2,7 @@
 import { useTVSeriesStore } from '@/hooks/useTVSeriesStore'
 import { ArrowLeft, ChevronRight, Flame, ListPlus, Play } from 'lucide-react'
 import Image from 'next/image'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -10,6 +10,7 @@ import IMDbBlock from '@/components/common/IMDbBlock'
 import PopularityBlock from '@/components/common/PopularityBlock'
 import CarouselList from '@/components/shared/CarouselList'
 import Similar from '@/components/tv-series/Similar'
+import Reviews from '@/components/shared/reviews/Reviews'
 
 const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://image.tmdb.org/t/p/w500'
 
@@ -21,15 +22,22 @@ const TvSerieDetailPage = () => {
         tvSeriesVideos,
         tvSeriesImages,
         tvSeriesTrailer,
+        tvSeriesReviews,
+        totalPages,
+        totalElements,
         fetchTVSeries,
         fetchTVSeriesCasts,
         fetchTVSeriesVideos,
         fetchTVSeriesImages,
+        fetchTVSeriesReviews,
         isLoading
     } = useTVSeriesStore()
 
     const params = useParams()
     const id = params?.id
+
+    const searchParams = useSearchParams()
+    const page = searchParams.get('page')
 
     useEffect(() => {
         if (id) {
@@ -37,6 +45,7 @@ const TvSerieDetailPage = () => {
                 fetchTVSeriesCasts(Number(id))
                 fetchTVSeriesVideos(Number(id))
                 fetchTVSeriesImages(Number(id))
+                fetchTVSeriesReviews(Number(id), Number(page))
             })
         }
     }, [id])
@@ -298,6 +307,7 @@ const TvSerieDetailPage = () => {
             </div>
 
             <Similar />
+            <Reviews reviews={tvSeriesReviews} totalPages={totalPages} totalElements={totalElements} />
         </div>
     )
 }

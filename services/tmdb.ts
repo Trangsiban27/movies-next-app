@@ -142,3 +142,13 @@ export const getTVSeriesSimilar = async (id: number, page: number) => {
         console.log('err: ', err)
     }
 }
+
+export const getTVSeriesReviews = async (id: number, page: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/tv/${id}/reviews${page ? `?page=${page}` : ''}`)
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
