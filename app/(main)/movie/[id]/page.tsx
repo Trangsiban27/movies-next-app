@@ -51,8 +51,6 @@ const MovieDetailPage = () => {
         router.push('/')
     }
 
-    console.log('movie: ', movie)
-
     const handleFavourite = () => {
         addFavourite(Number(user?.id), Number(id))
     }
@@ -104,9 +102,11 @@ const MovieDetailPage = () => {
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-sm font-medium text-white">
                             {Math.floor(movie?.runtime / 60)}h {movie?.runtime % 60}min
                         </div>
+
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-sm font-medium text-white">
                             {movie?.release_date?.split('-')[0]}
                         </div>
+
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-sm font-medium text-white uppercase">
                             {movie?.original_language}
                         </div>
@@ -146,8 +146,6 @@ const MovieDetailPage = () => {
                 </div>
 
             </div>
-
-
 
             <div className='mt-16 flex flex-col gap-8'>
                 <div className="max-w-4xl">
