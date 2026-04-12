@@ -18,8 +18,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
 const Header = () => {
+    const router = useRouter()
     const { toggle, isOpen } = useSidebar()
     const { user } = useUserStore()
 
@@ -66,14 +68,21 @@ const Header = () => {
                         </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-40" align="start">
-                        <DropdownMenuItem className='cursor-pointer'>
+                        <DropdownMenuItem
+                            className='cursor-pointer'
+                            onClick={() => {
+                                router.push(`/profile/${user?.id}`)
+                            }}
+                        >
                             Profile
                         </DropdownMenuItem>
                         <DropdownMenuItem className='cursor-pointer'>
                             Billing
                         </DropdownMenuItem>
-                        <DropdownMenuItem className='cursor-pointer'>
-                            Settings
+                        <DropdownMenuItem
+                            className='cursor-pointer'
+                        >
+                            Logout
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

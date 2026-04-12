@@ -1,4 +1,6 @@
+import { useUserStore } from "@/hooks/useUserStore";
 import apiClient from "@/lib/axios.config";
+import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
@@ -88,6 +90,29 @@ export const getMovieReviews = async (id: number, page?: number) => {
 
         return res?.data
     } catch(err) {
+        console.log('err: ', err)
+    }
+}
+
+export const addMovieFavourite = async (accountId: number, media_id: number, favorite: boolean) => {
+
+    try {
+        const res = await axios.post(`/api/movies/${accountId}/favourite`, {
+            accountId, media_id, favorite
+        })
+
+        return res
+    } catch(err) {
+        console.log('err: ', err)
+    }
+}
+
+export const getMovieFavourite = async (movieId: number) => {
+    try {
+        const res = await axios.get(`/api/movies/${movieId}/favourite`)
+
+        return res?.data
+    } catch (err) {
         console.log('err: ', err)
     }
 }

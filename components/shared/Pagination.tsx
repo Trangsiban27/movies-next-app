@@ -16,7 +16,6 @@ interface Props {
 }
 
 const PaginationCustom = ({ totalPages }: Props) => {
-    console.log('totalPages: ', totalPages)
     const pathname = usePathname()
     const searchParams = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1

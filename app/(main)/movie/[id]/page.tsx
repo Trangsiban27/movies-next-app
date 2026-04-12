@@ -5,7 +5,9 @@ import Reviews from '@/components/shared/reviews/Reviews'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { useMoviesStore } from '@/hooks/useMoviesStore'
-import { ArrowLeft, ListPlus, Play } from 'lucide-react'
+import { useUserStore } from '@/hooks/useUserStore'
+import { addMovieFavourite } from '@/services/tmdb'
+import { ArrowLeft, Heart, ListPlus, Play } from 'lucide-react'
 import Image from 'next/image'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
@@ -14,7 +16,22 @@ const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://ima
 
 const MovieDetailPage = () => {
     const router = useRouter()
-    const { movie, movieCasts, movieVideoTrailer, movieReviews, totalPages, totalElements, fetchMovie, fetchMovieCasts, fetchMovieVideos, fetchMovieReviews, isLoading } = useMoviesStore()
+    const {
+        movie,
+        movieCasts,
+        movieVideoTrailer,
+        movieReviews,
+        totalPages,
+        totalElements,
+        fetchMovie,
+        fetchMovieCasts,
+        fetchMovieVideos,
+        fetchMovieReviews,
+        fetchMovieFavourite,
+        addFavourite,
+        isLoading
+    } = useMoviesStore()
+    const { user } = useUserStore()
 
     const params = useParams()
     const id = params?.id
@@ -22,6 +39,7 @@ const MovieDetailPage = () => {
     useEffect(() => {
         if (id) {
             fetchMovie(Number(id)).then((res) => {
+                fetchMovieFavourite(Number(id))
                 fetchMovieCasts(Number(id))
                 fetchMovieVideos(Number(id))
                 fetchMovieReviews(Number(id))
@@ -31,6 +49,12 @@ const MovieDetailPage = () => {
 
     const handleBack = () => {
         router.push('/')
+    }
+
+    console.log('movie: ', movie)
+
+    const handleFavourite = () => {
+        addFavourite(Number(user?.id), Number(id))
     }
 
     if (isLoading) {
@@ -110,9 +134,14 @@ const MovieDetailPage = () => {
                             </DialogContent>
                         </Dialog>
 
-                        <Button className='w-fit bg-red-600/60 font-bold flex items-center gap-x-2 cursor-pointer'>
-                            <ListPlus />
-                        </Button>
+                        <button
+                            onClick={handleFavourite}
+                            className={`focus:outline-none cursor-pointer ${movie?.favorite ? 'bg-transparent' : ''}`}
+                        >
+                            <Heart
+                                className={`w-7 h-7 ${movie?.favorite ? 'animate-heart-pop fill-red-600 text-red-600' : 'text-white'}`}
+                            />
+                        </button>
                     </div>
                 </div>
 

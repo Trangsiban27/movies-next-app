@@ -1,5 +1,16 @@
-import { getMovie, getMovieCast, getMovieReviews, getMovieVideo, getTrendingMovies, getTrendingMoviesByPeriod, getUpcomingMovies } from "@/services/tmdb";
+import { 
+    addMovieFavourite, 
+    getMovie, 
+    getMovieCast, 
+    getMovieFavourite, 
+    getMovieReviews, 
+    getMovieVideo, 
+    getTrendingMovies, 
+    getTrendingMoviesByPeriod, 
+    getUpcomingMovies 
+} from "@/services/tmdb";
 import { create } from "zustand";
+import { useUserStore } from "./useUserStore";
 
 interface MoviesStore {
     trendingMovies: any[];
@@ -19,6 +30,8 @@ interface MoviesStore {
     fetchMovieCasts: (id: number) => Promise<void>;
     fetchMovieVideos: (id: number) => Promise<void>;
     fetchMovieReviews: (id: number, page?: number) => Promise<void>
+    addFavourite: (accountId: number, media_id: number) => Promise<void>
+    fetchMovieFavourite: (movieId: number) => Promise<void>
 }
 
 export const useMoviesStore = create<MoviesStore>((set) => ({
@@ -105,6 +118,39 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
             set({movieReviews: res?.results, totalElements: res?.total_results, totalPages: res?.total_pages, isLoading: false})
         } catch(err) {
             console.log('err: ', err)
+        }
+    },
+    addFavourite: async (accountId: number, media_id: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await addMovieFavourite(
+                accountId,
+                media_id,
+                true
+            )
+
+            set((state) => ({isLoading: false, movie: {...state.movie, favorite: true}}))
+        } catch (err) {
+            console.log('err: ', err)
+            set({isLoading: false})
+        }
+    },
+    fetchMovieFavourite: async (movieId: number) => {
+        set({isLoading: true})
+
+        try {
+            const res = await getMovieFavourite(movieId)
+
+            const favoriteStatus = res?.favorite;
+
+            set((state) => ({
+                isLoading: false,
+                movie: state.movie ? { ...state.movie, favorite: favoriteStatus } : null
+            }));
+        } catch (err) {
+            console.log('err: ', err)
+            set({isLoading: false})
         }
     }
 }))

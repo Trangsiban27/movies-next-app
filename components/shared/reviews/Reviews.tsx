@@ -10,7 +10,7 @@ const Reviews = ({ reviews, totalPages, totalElements }: { reviews?: any[], tota
 
             <div className='flex flex-col gap-6'>
                 {reviews?.map((review) => (
-                    <ReviewItem review={review} />
+                    <ReviewItem key={review?.id} review={review} />
                 ))}
             </div>
 
