@@ -1,4 +1,5 @@
 'use client'
+import LoadingSpinner from '@/components/common/Loading'
 import TrendingMovies from '@/components/movie/TrendingMovies'
 import CarouselList from '@/components/shared/CarouselList'
 import Reviews from '@/components/shared/reviews/Reviews'
@@ -57,7 +58,7 @@ const MovieDetailPage = () => {
 
     if (isLoading) {
         <div className='w-full h-screen flex items-center justify-center'>
-            <span>...Loading</span>
+            <LoadingSpinner />
         </div>
     }
 
