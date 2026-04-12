@@ -3,10 +3,16 @@
 import Header from '@/components/layout/Header'
 import Sidebar from '@/components/layout/Sidebar'
 import { useSidebar } from '@/hooks/useSidebar'
-import React from 'react'
+import { useUserStore } from '@/hooks/useUserStore'
+import React, { useEffect } from 'react'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
     const { isOpen } = useSidebar()
+    const { isLoading, fetchUser } = useUserStore()
+
+    useEffect(() => {
+        fetchUser()
+    }, [])
 
     return (
         <div className="flex h-screen w-full bg-[#0D0D0D] text-gray-100 overflow-hidden">

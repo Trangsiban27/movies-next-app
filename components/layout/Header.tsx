@@ -1,10 +1,27 @@
 'use client'
+import { IMAGE_BASE_URL } from '@/constants/imageBaseUrl'
 import { useSidebar } from '@/hooks/useSidebar'
+import { useUserStore } from '@/hooks/useUserStore'
 import { Bell, ChevronLeft, ChevronRight, Search } from 'lucide-react'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import React from 'react'
 
 const Header = () => {
     const { toggle, isOpen } = useSidebar()
+    const { user } = useUserStore()
 
     const handleButtonClick = () => {
         toggle()
@@ -33,11 +50,35 @@ const Header = () => {
                     <Bell size={22} />
                     <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-600 rounded-full border-2 border-[#0D0D0D]" />
                 </button>
-                <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/10 cursor-pointer">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ban" alt="User" className="object-cover" />
-                </div>
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/10 cursor-pointer">
+                            <img
+                                src={`${IMAGE_BASE_URL}${user?.avatar?.tmdb?.avatar_path}`}
+                                alt="User"
+                                className="object-cover"
+                                onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = "/avatar-default.svg";
+                                }}
+                            />
+                        </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-40" align="start">
+                        <DropdownMenuItem className='cursor-pointer'>
+                            Profile
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className='cursor-pointer'>
+                            Billing
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className='cursor-pointer'>
+                            Settings
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
-        </div>
+        </div >
     )
 }
 

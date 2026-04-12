@@ -1,3 +1,4 @@
+import { useUserStore } from '@/hooks/useUserStore';
 import { Compass, ListMusic, MoreHorizontal, PlaySquare, TrendingUp, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -35,6 +36,7 @@ const FOLLOWING_USERS = [
 
 const Sidebar = () => {
     const router = useRouter()
+
     return (
         <div className="flex flex-col h-full py-8 px-6">
             {/* Logo */}
