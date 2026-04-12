@@ -12,9 +12,7 @@ interface MenuItem {
 
 const MENU_ITEMS: MenuItem[] = [
     { icon: Compass, label: "Browse", url: '/' },
-    { icon: TrendingUp, label: "Trending", url: '/trending' },
-    { icon: Users, label: "Following", url: '/following' },
-    { icon: PlaySquare, label: "Your Videos", url: '/your-videos' },
+    { icon: TrendingUp, label: "Trending", url: '/trending-movies' },
     { icon: ListMusic, label: "Favorite List", url: '/favorites' },
 ];
 

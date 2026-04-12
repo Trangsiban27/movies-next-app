@@ -90,7 +90,7 @@ const Hero = ({ movies }: { movies: any }) => {
             </div>
 
             {/* --- THUMBNAIL & CONTROLS (Góc phải dưới) --- */}
-            <div className="absolute bottom-10 right-10 flex items-center gap-6 z-20">
+            <div className="absolute bottom-10 right-10 flex items-center gap-6 z-10">
                 {/* Thumbnails */}
                 <div className="hidden md:flex gap-3">
                     {movies?.slice(0, 5).map((movie: any, index: any) => (

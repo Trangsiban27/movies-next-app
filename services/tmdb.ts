@@ -191,3 +191,49 @@ export const getTVSeriesReviews = async (id: number, page: number) => {
         console.log('err: ', err)
     }
 }
+
+//search
+export const searchKeyword = async (query: string, page: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/search/keyword`, {
+            params: {
+                query,
+                page: Number(page) + 1
+            }
+        })
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
+
+export const searchMovies = async (query: string, page: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/search/movie`, {
+            params: {
+                query,
+                page: Number(page) + 1
+            }
+        })
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
+
+export const searchTvSeries = async (query: string, page: number) => {
+    try {
+        const res = await apiClient.get(`${BASE_URL}/search/tv`, {
+            params: {
+                query,
+                page: Number(page) + 1
+            }
+        })
+
+        return res?.data
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}

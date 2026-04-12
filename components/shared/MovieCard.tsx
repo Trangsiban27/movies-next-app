@@ -16,7 +16,7 @@ const MovieCard = ({ movie }: { movie: any }) => {
 
     return (
         <Card
-            className="relative mx-auto w-full max-w-sm pt-0 bg-black text-white max-h-87.5 cursor-pointer"
+            className="relative z-10 mx-auto w-full max-w-sm pt-0 bg-black text-white max-h-87.5 cursor-pointer"
             onClick={handleCardClick}
         >
             <img
