@@ -4,6 +4,8 @@ import { ChevronLeft, ChevronRight, Wifi } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
+import IMDbBlock from '../common/IMDbBlock'
+import PopularityBlock from '../common/PopularityBlock'
 
 const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL || 'https://image.tmdb.org/t/p/w500'
 
@@ -68,11 +70,13 @@ const Hero = ({ movies }: { movies: any }) => {
                                         </h1>
                                     </div>
 
-                                    <div className="flex items-center gap-1 text-sm font-medium">
+                                    <div className="flex items-center gap-4 text-sm font-medium">
                                         <div className="flex items-center gap-2 px-2 py-0.5 rounded">
                                             <span className="font-black text-[10px] bg-yellow-500 text-black px-1">IMDb</span>
                                             <span className='font-semibold'>{movie?.vote_average?.toFixed(1)}</span>
                                         </div>
+
+                                        <PopularityBlock popularity={movie?.popularity} />
                                     </div>
                                 </div>
 
