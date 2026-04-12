@@ -117,6 +117,20 @@ export const getMovieFavourite = async (movieId: number) => {
     }
 }
 
+export const getFavoriteMovies = async (id: number, page: number) => {
+    try {
+        const res = await axios.get(`/api/favorites/${id}/movies`, {
+            params: {
+                page,
+            }
+        })
+
+        return res
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
+
 //Tv series
 export const getTVSerie = async (id: number) => {
     try {
