@@ -175,8 +175,6 @@ const MovieDetailPage = () => {
                         ></iframe>
                     </div>
                 ))}
-
-
             </div>
 
             <div className='flex flex-col gap-8'>

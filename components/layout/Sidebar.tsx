@@ -1,14 +1,21 @@
+'use client'
 import { useUserStore } from '@/hooks/useUserStore';
-import { Compass, ListMusic, MoreHorizontal, PlaySquare, TrendingUp, Users } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import React from 'react'
+import { Compass, ListMusic, LucideIcon, MoreHorizontal, PlaySquare, TrendingUp, Users } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 
-const MENU_ITEMS = [
-    { icon: Compass, label: "Browse", active: true },
-    { icon: TrendingUp, label: "Trending", active: false },
-    { icon: Users, label: "Following", active: false },
-    { icon: PlaySquare, label: "Your Videos", active: false },
-    { icon: ListMusic, label: "Playlist", active: false },
+interface MenuItem {
+    icon: LucideIcon;
+    label: string;
+    url: string;
+}
+
+const MENU_ITEMS: MenuItem[] = [
+    { icon: Compass, label: "Browse", url: '/' },
+    { icon: TrendingUp, label: "Trending", url: '/trending' },
+    { icon: Users, label: "Following", url: '/following' },
+    { icon: PlaySquare, label: "Your Videos", url: '/your-videos' },
+    { icon: ListMusic, label: "Favorite List", url: '/favorites' },
 ];
 
 const FOLLOWING_USERS = [
@@ -36,6 +43,18 @@ const FOLLOWING_USERS = [
 
 const Sidebar = () => {
     const router = useRouter()
+    const pathname = usePathname();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const checkActive = (itemUrl: string) => {
+        if (!mounted) return false;
+        if (itemUrl === '/') return pathname === '/';
+        return pathname.startsWith(itemUrl);
+    };
 
     return (
         <div className="flex flex-col h-full py-8 px-6">
@@ -50,26 +69,36 @@ const Sidebar = () => {
             {/* News Feed Section */}
             <div className="mb-8">
                 <p className="text-[10px] uppercase font-bold text-gray-500 mb-4 px-2 tracking-widest">News Feed</p>
-                <nav className="space-y-1">
-                    {MENU_ITEMS.map((item) => (
-                        <button
-                            key={item.label}
-                            className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 cursor-pointer ${item.active
-                                ? "bg-[#E50914] text-white shadow-lg shadow-red-900/20"
-                                : "text-gray-400 hover:text-white hover:bg-white/5"
-                                }`}
-                        >
-                            <item.icon size={20} />
-                            <span className="text-sm font-medium">{item.label}</span>
-                        </button>
-                    ))}
+                <nav className="space-y-2">
+                    {MENU_ITEMS.map((item) => {
+                        const isActive = checkActive(item.url);
+
+                        return (
+                            <button
+                                key={item.label}
+                                onClick={() => router.push(item.url)}
+                                className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 group ${isActive
+                                    ? "bg-[#E50914] text-white shadow-xl shadow-red-900/30 translate-x-1"
+                                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                                    }`}
+                            >
+                                <item.icon
+                                    size={20}
+                                    strokeWidth={isActive ? 2.5 : 2}
+                                    className={`transition-colors ${isActive ? "text-white" : "group-hover:text-white"}`}
+                                />
+                                <span className={`text-sm transition-all ${isActive ? "font-semibold" : "font-medium"}`}>
+                                    {item.label}
+                                </span>
+                            </button>
+                        )
+                    })}
                 </nav>
             </div>
 
-            {/* Following Section (Mini) */}
             <div className="">
                 <p className="text-[10px] uppercase font-bold text-gray-500 mb-4 px-2 tracking-widest">Following</p>
-                {/* Placeholder cho list bạn bè */}
+
                 <div className="space-y-4 px-2">
                     {FOLLOWING_USERS?.map(i => (
                         <div key={i?.name} className="flex items-center gap-3 hover:opacity-100 cursor-pointer">
