@@ -4,7 +4,7 @@ export function middleware (request: NextRequest) {
     const sessionId = request.cookies.get('tmdb_session_id')?.value
     const {pathname} = request.nextUrl
 
-    const protectedRoutes = ['/']
+    const protectedRoutes = ['/favories', '/profile/:path*']
 
     if(protectedRoutes.some(route => pathname.startsWith(route) && !sessionId)) {
         return NextResponse.redirect(new URL('/login', request.url))
@@ -14,5 +14,5 @@ export function middleware (request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/']
+    matcher: ['/favorites', '/profile/:path*']
 }

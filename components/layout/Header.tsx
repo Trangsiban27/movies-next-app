@@ -81,8 +81,6 @@ const Header = () => {
         })
     }, [])
 
-    console.log('keywords: ', keywords)
-
     return (
         <div className="w-full flex items-center justify-between">
             {/* Nút Back */}
