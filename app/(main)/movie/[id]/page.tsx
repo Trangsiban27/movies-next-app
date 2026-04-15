@@ -83,7 +83,7 @@ const MovieDetailPage = () => {
 
             <div className='relative max-w-7xl mx-auto px-4 -mt-40 z-10 flex flex-col md:flex-row gap-10 items-end'>
 
-                <div className='shrink-0 w-64 h-96 relative rounded-xl overflow-hidden shadow-2xl border border-white/10'>
+                <div className='shrink-0 w-64 h-96 relative -left-20 md:left-0 lg:left-0 rounded-xl overflow-hidden shadow-2xl border border-white/10'>
                     <Image
                         src={`${imageBaseUrl}${movie.poster_path}`}
                         alt="poster"
@@ -148,7 +148,7 @@ const MovieDetailPage = () => {
 
             </div>
 
-            <div className='mt-16 flex flex-col gap-8'>
+            <div className='mt-16 flex flex-col gap-8 px-6 md:px-0 lg:px-0'>
                 <div className="max-w-4xl">
                     <h3 className="text-white font-bold text-xl mb-3">Overview</h3>
                     <p className='text-gray-400 leading-relaxed'>{movie?.overview}</p>
@@ -160,7 +160,7 @@ const MovieDetailPage = () => {
                 </div>
             </div>
 
-            <div className='mt-16 flex flex-col gap-8'>
+            <div className='mt-16 flex flex-col gap-8 px-6 md:px-0 lg:px-0'>
                 <h3 className="text-white font-bold text-xl mb-3">Trailer</h3>
 
                 {movieVideoTrailer?.map((video) => (

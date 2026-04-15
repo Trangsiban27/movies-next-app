@@ -7,8 +7,8 @@ const ProfilePage = () => {
     const { user } = useUserStore()
 
     return (
-        <div className='h-screen flex items-center justify-center'>
-            <div className='px-12 py-6 border rounded-lg bg-black/20 w-1/2'>
+        <div className='h-screen flex items-start md:items-center lg:items-center md:justify-center lg:justify-center'>
+            <div className='px-12 py-6 border rounded-lg bg-black/20 md:w-1/2 lg:w-1/2 w-full mx-6 md:mx-0 lg:mx-0'>
                 <h3 className='text-2xl font-bold'>Profile</h3>
 
                 <div className='w-full flex items-center justify-center mt-12'>

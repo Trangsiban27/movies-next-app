@@ -5,7 +5,7 @@ import PaginationCustom from '../Pagination'
 
 const Reviews = ({ reviews, totalPages, totalElements }: { reviews?: any[], totalPages?: number, totalElements?: number }) => {
     return (
-        <div className='mt-16 flex flex-col gap-8'>
+        <div className='mt-16 flex flex-col gap-8 px-6 md:px-0 lg:px-0'>
             <h3 className="text-white font-bold text-xl mb-3">Reviews ({totalElements})</h3>
 
             <div className='flex flex-col gap-6'>

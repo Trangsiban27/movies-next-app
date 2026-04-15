@@ -20,9 +20,9 @@ const Similar = () => {
 
     return (
         <div>
-            <h3 className='font-bold text-2xl mt-12'>Similar Series</h3>
+            <h3 className='font-bold text-2xl mt-12 px-6 md:px-0 lg:px-0'>Similar Series</h3>
 
-            <div className='grid grid-cols-4 gap-4 mt-6'>
+            <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 mt-6 px-6 md:px-0 lg:px-0'>
                 {tvSeriesSimilar?.slice(0, 8)?.map((tv: any) => (
                     <TVSeriesCard key={tv?.id} tv={tv} />
                 ))}

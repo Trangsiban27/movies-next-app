@@ -39,8 +39,8 @@ const TrendingPeoplePage = () => {
     }
 
     return (
-        <div className='my-6'>
-            <div className='w-full flex items-center justify-between'>
+        <div className='my-6 px-6 md:px-0 lg:px-0'>
+            <div className='w-full flex flex-col md:flex-row lg:flex-row items-start md:items-center lg:items-center gap-y-4 justify-between'>
                 <div className='flex items-center gap-x-2'>
                     <Button variant={'ghost'} className='cursor-pointer' onClick={handleBack}>
                         <ChevronLeft />
@@ -62,7 +62,7 @@ const TrendingPeoplePage = () => {
                 </Select>
             </div>
 
-            <div className='grid grid-cols-4 gap-8 mt-8'>
+            <div className='grid gird-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8 mt-8'>
                 {trendingPeoples?.map((people) => (
                     <PeopleCard key={people?.id} people={people} />
                 ))}

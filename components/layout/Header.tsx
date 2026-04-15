@@ -2,7 +2,7 @@
 import { IMAGE_BASE_URL } from '@/constants/imageBaseUrl'
 import { useSidebar } from '@/hooks/useSidebar'
 import { useUserStore } from '@/hooks/useUserStore'
-import { Bell, ChevronLeft, ChevronRight, Search } from 'lucide-react'
+import { Bell, ChevronLeft, ChevronRight, Menu, Search } from 'lucide-react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,6 +21,7 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSearchStore } from '@/hooks/useSearchStore'
 import { searchKeyword } from '@/services/tmdb'
+import { Button } from '../ui/button'
 
 const Header = () => {
     const searchContainerRef = useRef<HTMLDivElement>(null)
@@ -84,8 +85,19 @@ const Header = () => {
     return (
         <div className="w-full flex items-center justify-between">
             {/* Nút Back */}
-            <button className="p-2.5 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-colors cursor-pointer" onClick={() => handleButtonClick()}>
-                {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+            <button
+                className="p-2.5 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                onClick={() => toggle()}
+            >
+                {/* - Trên Desktop (lg): Hiện ChevronLeft/Right 
+                  - Trên Mobile: Hiện icon Menu nếu sidebar đang đóng
+                */}
+                <div className="hidden lg:block">
+                    {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+                </div>
+                <div className="block lg:hidden">
+                    <Menu size={20} />
+                </div>
             </button>
 
             {/* Thanh Search bự ở giữa */}
@@ -100,7 +112,7 @@ const Header = () => {
                 />
 
                 {(keywords?.length > 0 && isShow) && (
-                    <div ref={searchContainerRef} className="absolute h-100 overflow-y-scroll scroll-smooth top-full left-0 w-full mt-2 bg-black border border-white/10 rounded-2xl shadow-2xl py-2 z-50 overflow-hidden backdrop-blur-xl">
+                    <div ref={searchContainerRef} className="absolute h-100 overflow-y-scroll scroll-smooth top-full -left-20 md:left-0 lg:left-0 md:w-full lg:w-full w-80 mt-2 bg-black border border-white/10 rounded-2xl shadow-2xl py-2 z-50 overflow-hidden backdrop-blur-xl">
                         {keywords.length > 0 ? (
                             keywords.map((item) => (
                                 <div
@@ -121,8 +133,6 @@ const Header = () => {
                 )}
             </div>
 
-
-
             {/* User Actions */}
             <div className="flex items-center gap-4">
                 <button className="relative p-2.5 text-gray-400 hover:text-white transition-colors">
@@ -130,7 +140,18 @@ const Header = () => {
                     <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-600 rounded-full border-2 border-[#0D0D0D]" />
                 </button>
 
-                <DropdownMenu>
+                {(!user?.id && !user) && (
+                    <Button
+                        className='cursor-pointer font-bold py-6 px-12 bg-linear-to-br from-indigo-600 via-blue-700 to-cyan-400 hover:hue-rotate-15 text-white transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] border-none'
+                        onClick={() => {
+                            router.push('/login')
+                        }}
+                    >
+                        Login
+                    </Button>
+                )}
+
+                {user && <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/10 cursor-pointer">
                             <img
@@ -162,7 +183,7 @@ const Header = () => {
                             Logout
                         </DropdownMenuItem>
                     </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu>}
             </div>
         </div >
     )

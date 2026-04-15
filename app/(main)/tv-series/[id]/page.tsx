@@ -81,7 +81,7 @@ const TvSerieDetailPage = () => {
 
             <div className='relative max-w-7xl mx-auto px-4 -mt-40 z-10 flex flex-col md:flex-row gap-10 items-end'>
 
-                <div className='shrink-0 w-64 h-96 relative rounded-xl overflow-hidden shadow-2xl border border-white/10'>
+                <div className='shrink-0 w-64 h-96 relative -left-20 md:left-0 lg:left-0 rounded-xl overflow-hidden shadow-2xl border border-white/10'>
                     <Image
                         src={`${imageBaseUrl}${tvSeries?.poster_path}`}
                         alt="poster"
@@ -140,7 +140,7 @@ const TvSerieDetailPage = () => {
                 </div>
             </div>
 
-            <div className='mt-16 flex gap-8'>
+            <div className='mt-16 flex gap-8 px-6 md:px-0 lg:px-0'>
                 <div className='flex items-center gap-4'>
                     <IMDbBlock />
                     <span className='font-bold text-lg'>{tvSeries?.vote_average}</span>
@@ -149,14 +149,14 @@ const TvSerieDetailPage = () => {
                 <PopularityBlock popularity={tvSeries?.popularity} />
             </div>
 
-            <div className='mt-12 flex flex-col gap-8'>
+            <div className='mt-12 flex flex-col gap-8 px-6 md:px-0 lg:px-0'>
                 <div className="max-w-4xl">
                     <h3 className="text-white font-bold text-xl mb-3">Overview</h3>
                     <p className='text-gray-400 leading-relaxed'>{tvSeries?.overview}</p>
                 </div>
             </div>
 
-            <div className='mt-6 flex flex-col gap-4'>
+            <div className='mt-6 flex flex-col gap-4 px-6 md:px-0 lg:px-0'>
                 <div className='flex items-center gap-x-2'>
                     <span className='text-gray-500 font-bold'>Creators: </span>
                     <div className=''>
@@ -174,7 +174,7 @@ const TvSerieDetailPage = () => {
                 <div className='flex items-center gap-x-2'>
                     <span className='text-gray-500 font-bold'>Homepage: </span>
                     <span
-                        className='font-semibold hover:underline cursor-pointer'
+                        className='font-semibold hover:underline cursor-pointer line-clamp-1 overflow-hidden underline md:no-underline lg:no-underline'
                         onClick={() => {
                             const url = tvSeries?.homepage;
 
@@ -191,7 +191,7 @@ const TvSerieDetailPage = () => {
 
                 <div className='flex items-center gap-x-2'>
                     <span className='text-gray-500 font-bold'>Genres: </span>
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 flex-wrap'>
                         {tvSeries?.genres?.map((ge: any) => (
                             <span key={ge?.id} className='px-4 border rounded-2xl py-1'>{ge?.name}</span>
                         ))}
@@ -199,10 +199,10 @@ const TvSerieDetailPage = () => {
                 </div>
             </div>
 
-            {tvSeries?.seasons?.length > 0 && <div className='mt-12 flex flex-col gap-8'>
+            {tvSeries?.seasons?.length > 0 && <div className='mt-12 flex flex-col gap-8 px-6 md:px-0 lg:px-0'>
                 <h3 className="text-white font-bold text-xl mb-3">Seasons ({tvSeries?.seasons?.length})</h3>
 
-                <div className='grid grid-cols-3 gap-8 row-auto'>
+                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 row-auto'>
                     {tvSeries?.seasons?.map((sea: any, index: number) => (
                         <div key={sea?.id} className='flex flex-col cursor-pointer' onClick={() => {
                             // router.push(`/tv-series/${sea?.id}`)
@@ -222,12 +222,12 @@ const TvSerieDetailPage = () => {
                 </div>
             </div>}
 
-            <div className='flex flex-col gap-y-4 mt-12'>
+            <div className='flex flex-col gap-y-4 mt-12 px-6 md:px-0 lg:px-0'>
                 <span className='text-white font-bold text-xl'>Cast</span>
                 <CarouselList list={tvSeriesCasts} type='people' />
             </div>
 
-            <div className='flex flex-col gap-y-4 mt-12'>
+            <div className='flex flex-col gap-y-4 mt-12 px-6 md:px-0 lg:px-0'>
                 <span className='text-white font-bold text-xl flex items-center gap-4'>
                     Videos
 
@@ -240,7 +240,7 @@ const TvSerieDetailPage = () => {
                 </span>
 
                 <div className='flex flex-col gap-4'>
-                    <div className='grid grid-cols-2 col-span-2 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 col-span-2 gap-4'>
                         {tvSeriesVideos?.slice(0, 2)?.map((video: any) => (
                             <div key={video?.id} className='h-60 rounded-lg overflow-hidden'>
                                 <iframe
@@ -256,7 +256,7 @@ const TvSerieDetailPage = () => {
                         ))}
                     </div>
 
-                    <div className='grid grid-cols-4 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4'>
                         {tvSeriesVideos?.slice(2, 6)?.map((video: any) => (
                             <div key={video?.id} className='h-60 rounded-lg overflow-hidden'>
                                 <iframe
@@ -274,7 +274,7 @@ const TvSerieDetailPage = () => {
                 </div>
             </div>
 
-            <div className='flex flex-col gap-y-4 mt-12'>
+            <div className='flex flex-col gap-y-4 mt-12 px-6 md:px-0 lg:px-0'>
                 <span
                     className='text-white font-bold text-xl flex items-center gap-2'
                 >
@@ -288,7 +288,7 @@ const TvSerieDetailPage = () => {
                 </span>
 
                 <div className='flex flex-col gap-4'>
-                    <div className='grid grid-cols-2 col-span-2 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 col-span-2 gap-4'>
                         {tvSeriesImages?.slice(0, 2)?.map((image: any) => (
                             <div key={image?.id} className='w-full h-80 rounded-lg overflow-hidden'>
                                 <img className='w-full h-full object-cover' src={`${imageBaseUrl}${image?.file_path}`} alt="tv series image" />
@@ -296,7 +296,7 @@ const TvSerieDetailPage = () => {
                         ))}
                     </div>
 
-                    <div className='grid grid-cols-4 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4'>
                         {tvSeriesImages?.slice(2, 6)?.map((image: any) => (
                             <div key={image?.id} className='w-full h-60 rounded-lg overflow-hidden'>
                                 <img className='w-full h-full object-cover' src={`${imageBaseUrl}${image?.file_path}`} alt="tv series image" />

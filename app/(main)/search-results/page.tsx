@@ -35,7 +35,7 @@ const SearchResultsPage = () => {
     }
 
     return (
-        <div className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-6 px-6 md:px-0 lg:px-0'>
             {movies?.length > 0 && <div>
                 <h1 className='font-bold text-4xl'>Movies</h1>
 

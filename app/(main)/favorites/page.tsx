@@ -51,7 +51,7 @@ const FavoritesPage = () => {
     }
 
     return (
-        <div>
+        <div className='px-6 md:px-0 lg:px-0'>
             <h1 className='font-bold text-2xl'>Favorites Movie List</h1>
 
             <div className='grid md:grid-cols-4 gap-4 mt-6'>

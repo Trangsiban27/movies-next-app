@@ -23,7 +23,7 @@ const TvSeriesImagesPage = () => {
     }
 
     return (
-        <div>
+        <div className='px-6 md:px-0 lg:px-0'>
             <h3 className='font-bold text-2xl gap-4 flex'>
                 <Button className='cursor-pointer' onClick={handleBack}>
                     <ChevronLeft />

@@ -36,7 +36,7 @@ const TrendingTVSeries = () => {
 
     return (
         <div className="mt-12">
-            <div className='w-full flex items-center justify-between'>
+            <div className='w-full flex items-start lg:items-center justify-between flex-col lg:flex-row gap-y-6 px-6 lg:px-0'>
                 <span className='font-bold text-3xl'>Trending TV Series</span>
 
                 <Select value={period} onValueChange={handleChangePeriod}>
@@ -53,7 +53,7 @@ const TrendingTVSeries = () => {
                 </Select>
             </div>
 
-            <div className='grid grid-cols-4 grid-rows-2 gap-8 mt-12'>
+            <div className='grid grid-cols-1 lg:grid-cols-4 grid-rows-2 gap-8 mt-12 px-6 lg:px-0'>
                 {trendingTVSeries?.slice(0, 8)?.map((tv) => (
                     <TVSeriesCard key={tv?.id} tv={tv} />
                 ))}

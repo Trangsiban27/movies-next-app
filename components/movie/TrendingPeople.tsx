@@ -33,7 +33,7 @@ const TrendingPeople = () => {
 
     return (
         <div className="mt-12">
-            <div className='w-full flex items-center justify-between'>
+            <div className='w-full flex items-start lg:items-center justify-between flex-col lg:flex-row gap-y-6 px-6 lg:px-0'>
                 <span className='font-bold text-3xl'>Trending People</span>
 
                 <Select value={period} onValueChange={handleChangePeriod}>
@@ -50,7 +50,7 @@ const TrendingPeople = () => {
                 </Select>
             </div>
 
-            <div className='flex gap-x-6 mt-12'>
+            <div className='grid grid-cols-1 lg:grid-cols-4 grid-rows-1 gap-8 mt-12 px-6 lg:px-0'>
                 {trendingPeoples?.slice(0, 4)?.map((people) => (
                     <PeopleCard key={people?.id} people={people} />
                 ))}
