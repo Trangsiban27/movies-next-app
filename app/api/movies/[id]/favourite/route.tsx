@@ -1,7 +1,7 @@
 import apiClient from "@/lib/axios.config";
 import axios from "axios";
 import { cookies } from "next/headers"
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: Request) => {
     const cookiesStore = cookies()
@@ -33,7 +33,7 @@ export const POST = async (request: Request) => {
     }
 }
 
-export const GET = async (request: Request, { params }: { params: Promise<{ id: number }> }) => {
+export const GET = async (request: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
     const cookiesStore = await cookies()
     const sessionId = cookiesStore.get('tmdb_session_id')?.value
 
@@ -44,7 +44,7 @@ export const GET = async (request: Request, { params }: { params: Promise<{ id: 
     try {
         const { id } = await params;
         const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}/account_states`,
+            `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${Number(id)}/account_states`,
             {
                 params: {
                     session_id: sessionId

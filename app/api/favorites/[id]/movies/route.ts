@@ -1,9 +1,13 @@
 import { API_BASE_URL } from "@/constants/apiBaseUrl";
 import axios from "axios";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (request: Request, {params}: {params: Promise<{id: number}>}) => {
+interface RouteParams {
+  id: string;
+}
+
+export const GET = async (request: NextRequest, {params}: {params: Promise<RouteParams>}) => {
     const cookiesStore = await cookies()
     const sessionId = cookiesStore.get('tmdb_session_id')?.value
 
@@ -17,7 +21,7 @@ export const GET = async (request: Request, {params}: {params: Promise<{id: numb
         const {searchParams} = new URL(request.url)
         const page = searchParams?.get('page')
 
-        const res = await axios.get(`${API_BASE_URL}/account/${id}/favorite/movies`, {
+        const res = await axios.get(`${API_BASE_URL}/account/${Number(id)}/favorite/movies`, {
             params: {
                 session_id: sessionId,
                 page: Number(page) + 1,
