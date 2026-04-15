@@ -47,7 +47,7 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
 
         try {
             const res = await getTrendingMovies()
-            console.log('resss: ', res)
+
             set({trendingMovies: res?.results, totalPages: res?.total_pages, isLoading: false})
         } catch (err) {
             console.log('err: ', err)

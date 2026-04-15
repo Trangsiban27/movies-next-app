@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
 export const getTrendingMovies = async () => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/trending/movie/day`)
+        const res = await axios.get(`/api/movies/trending`)
         
         return res?.data
     } catch (err) {
@@ -16,7 +16,12 @@ export const getTrendingMovies = async () => {
 
 export const getTrendingMoviesByPeriod = async (period: string, currentPage?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/trending/movie/${period}${currentPage ? `?page=${currentPage}`: ''}`)
+        const res = await axios.get(`/api/movies/trending`, {
+            params: {
+                period: period,
+                page: currentPage
+            }
+        })
 
         return res?.data
     } catch (err) {
@@ -26,7 +31,12 @@ export const getTrendingMoviesByPeriod = async (period: string, currentPage?: nu
 
 export const getTrendingPeople = async (period: string, page?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/trending/person/${period}${page ? `?page=${page}` : ''}`)
+        const res = await axios.get('/api/people/trending', {
+            params: {
+                period: period,
+                page: page
+            }
+        });
 
         return res?.data
     } catch(err) {
@@ -36,7 +46,12 @@ export const getTrendingPeople = async (period: string, page?: number) => {
 
 export const getTrendingTVSeries = async (period: string, page?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/trending/tv/${period}${page ? `?page=${page}` : ''}`)
+        const res = await axios.get('/api/tv-series/trending', {
+            params: {
+                period: period,
+                page: page
+            }
+        });
 
         return res?.data
     } catch(err) {
@@ -46,7 +61,11 @@ export const getTrendingTVSeries = async (period: string, page?: number) => {
 
 export const getUpcomingMovies = async (page?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/movie/upcoming${page ? `?page=${page}` : ''}`)
+        const res = await axios.get('/api/movies/upcoming', {
+            params: {
+                page: page
+            }
+        });
 
         return res?.data
     } catch(err) {
@@ -56,7 +75,7 @@ export const getUpcomingMovies = async (page?: number) => {
 
 export const getMovie = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/movie/${id}`)
+        const res = await axios.get(`/api/movies/${id}`);
 
         return res
     } catch (err) {
@@ -66,7 +85,7 @@ export const getMovie = async (id: number) => {
 
 export const getMovieCast = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/movie/${id}/credits`)
+        const res = await axios.get(`/api/movie/${id}/cast`);
 
         return res?.data
     } catch(err) {
@@ -76,7 +95,7 @@ export const getMovieCast = async (id: number) => {
 
 export const getMovieVideo = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/movie/${id}/videos`)
+        const res = await axios.get(`/api/movie/${id}/videos`);
 
         return res?.data?.results
     } catch (err) {
@@ -86,7 +105,11 @@ export const getMovieVideo = async (id: number) => {
 
 export const getMovieReviews = async (id: number, page?: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/movie/${id}/reviews${page ? `?page=${page}` : ''}`)
+        const res = await axios.get(`/api/movie/${id}/reviews`, {
+            params: {
+                page: page
+            }
+        });
 
         return res?.data
     } catch(err) {
@@ -97,9 +120,10 @@ export const getMovieReviews = async (id: number, page?: number) => {
 export const addMovieFavourite = async (accountId: number, media_id: number, favorite: boolean) => {
 
     try {
-        const res = await axios.post(`/api/movies/${accountId}/favourite`, {
-            accountId, media_id, favorite
-        })
+        const res = await axios.post(`/api/movie/${accountId}/favorite`, {
+            media_id, 
+            favorite
+        });
 
         return res
     } catch(err) {
@@ -109,7 +133,7 @@ export const addMovieFavourite = async (accountId: number, media_id: number, fav
 
 export const getMovieFavourite = async (movieId: number) => {
     try {
-        const res = await axios.get(`/api/movies/${movieId}/favourite`)
+        const res = await axios.get(`/api/movie/${movieId}/favorite`);
 
         return res?.data
     } catch (err) {
@@ -134,7 +158,7 @@ export const getFavoriteMovies = async (id: number, page: number) => {
 //Tv series
 export const getTVSerie = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/tv/${id}`)
+        const res = await axios.get(`/api/tv-series/${id}`);
 
         return res?.data
     } catch (err) {
@@ -144,7 +168,7 @@ export const getTVSerie = async (id: number) => {
 
 export const getTVSeriesCredits = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/tv/${id}/credits`)
+        const res = await axios.get(`/api/tv-series/${id}/credits`);
 
         return res?.data
     } catch (err) {
@@ -154,7 +178,7 @@ export const getTVSeriesCredits = async (id: number) => {
 
 export const getTVSeriesVideos = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/tv/${id}/videos`)
+        const res = await axios.get(`/api/tv-series/${id}/videos`);
 
         return res?.data?.results
     } catch (err) {
@@ -164,7 +188,7 @@ export const getTVSeriesVideos = async (id: number) => {
 
 export const getTVSeriesImages = async (id: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/tv/${id}/images`)
+        const res = await axios.get(`/api/tv-series/${id}/images`);
 
         return res?.data
     } catch (err) {
@@ -174,7 +198,11 @@ export const getTVSeriesImages = async (id: number) => {
 
 export const getTVSeriesSimilar = async (id: number, page: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/tv/${id}/similar${page ? `?page=${page}` : ''}`)
+        const res = await axios.get(`/api/tv-series/${id}/similar`, {
+            params: {
+                page: page
+            }
+        });
 
         return res?.data
     } catch (err) {
@@ -184,7 +212,11 @@ export const getTVSeriesSimilar = async (id: number, page: number) => {
 
 export const getTVSeriesReviews = async (id: number, page: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/tv/${id}/reviews${page ? `?page=${page}` : ''}`)
+        const res = await axios.get(`/api/tv-series/${id}/reviews`, {
+            params: {
+                page: page
+            }
+        });
 
         return res?.data
     } catch (err) {
@@ -195,12 +227,13 @@ export const getTVSeriesReviews = async (id: number, page: number) => {
 //search
 export const searchKeyword = async (query: string, page: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/search/keyword`, {
+        const res = await axios.get('/api/search/keyword', {
             params: {
                 query,
+                // Giữ nguyên logic tăng trang của bạn
                 page: Number(page) + 1
             }
-        })
+        });
 
         return res?.data
     } catch (err) {
@@ -210,12 +243,12 @@ export const searchKeyword = async (query: string, page: number) => {
 
 export const searchMovies = async (query: string, page: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/search/movie`, {
+        const res = await axios.get('/api/search/movies', {
             params: {
                 query,
                 page: Number(page) + 1
             }
-        })
+        });
 
         return res?.data
     } catch (err) {
@@ -225,12 +258,12 @@ export const searchMovies = async (query: string, page: number) => {
 
 export const searchTvSeries = async (query: string, page: number) => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/search/tv`, {
+        const res = await axios.get('/api/search/tv', {
             params: {
                 query,
                 page: Number(page) + 1
             }
-        })
+        });
 
         return res?.data
     } catch (err) {

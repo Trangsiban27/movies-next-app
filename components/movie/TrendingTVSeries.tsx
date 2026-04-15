@@ -12,7 +12,7 @@ const TrendingTVSeries = () => {
     const [period, setPeriod] = useState<string>('day')
     const { trendingTVSeries, fetchTVSeriesByPeriod, isLoading } = useTVSeriesStore()
 
-    console.log('trendingTVSeries: ', trendingTVSeries)
+
 
     useEffect(() => {
         fetchTVSeriesByPeriod?.(period)

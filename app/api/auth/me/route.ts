@@ -22,3 +22,5 @@ export const GET = async () => {
         return NextResponse.json({ error: 'Fetch failed' }, { status: 500 });
     }
 }
+
+

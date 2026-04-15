@@ -57,7 +57,7 @@ const Sidebar = () => {
         return pathname.startsWith(itemUrl);
     };
 
-    console.log('isOpen: ', isOpen)
+
 
     return (
         <>

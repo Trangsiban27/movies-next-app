@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
 export const loginWithTMDB = async () => {
     try {
-        const res = await apiClient.get(`${BASE_URL}/authentication/token/new`)
+        const res = await axios.get(`/api/auth/login`)
 
         return res?.data
     } catch (err) {
@@ -16,7 +16,7 @@ export const loginWithTMDB = async () => {
 
 export const createSessionId = async (requestToken: string) => {
     try {
-        const res = await apiClient.post(`${BASE_URL}/authentication/session/new`, {
+        const res = await axios.post(`/api/auth/session`, {
             request_token: requestToken
         })
 
